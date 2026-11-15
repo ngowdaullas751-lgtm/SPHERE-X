@@ -27,6 +27,6 @@ services:
     envVars:
       - key: VITE_API_URL
         fromService:
-          type: web
           name: sphere-x-backend
-          property: host
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
