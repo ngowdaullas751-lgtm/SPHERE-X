@@ -1,0 +1,123 @@
+{
+  "passed": [
+    {
+      "id": "TC-01",
+      "name": "FastAPI Server Online & /api/health Responding",
+      "details": "{'status': 'ok', 'version': '1.0.0', 'nasa_archive_connected': True, 'timestamp': '2026-11-15T03:49:17.064381'}"
+    },
+    {
+      "id": "TC-02",
+      "name": "React Vite Frontend Server Online on Port 5173",
+      "details": "Status code: 200"
+    },
+    {
+      "id": "TC-03",
+      "name": "Frontend-to-Backend Reverse Proxy (/api -> :8000)",
+      "details": "Proxy status: 200"
+    },
+    {
+      "id": "TC-API-health",
+      "name": "GET /api/health",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-API-targets",
+      "name": "GET /api/targets",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-API-spectrum",
+      "name": "GET /api/spectrum",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-API-light-curve",
+      "name": "GET /api/light-curve",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-API-candidates",
+      "name": "GET /api/candidates",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-API-candidates-post",
+      "name": "POST /api/candidates submission",
+      "details": "Created id: QA-TEST-001"
+    },
+    {
+      "id": "TC-API-candidates-vote",
+      "name": "POST /api/candidates/{id}/vote",
+      "details": "Votes: 1"
+    },
+    {
+      "id": "TC-05",
+      "name": "NASA/IPAC IRSA TAP Live Endpoint Connection",
+      "details": "Status: 200"
+    },
+    {
+      "id": "TC-06",
+      "name": "WISE 0855 Sexagesimal to Decimal Degree Conversion",
+      "details": "Calculated: RA=133.795129\u00b0, Dec=-7.245147\u00b0 (\u0394RA=1.67e-07\u00b0, \u0394Dec=2.22e-07\u00b0)"
+    },
+    {
+      "id": "TC-07",
+      "name": "Astropy FITS Header & WCS World Coordinate Transformation",
+      "details": "Shape: (128, 128), Telescope: SPHEREx, Unit: MJy/sr, Center: (269.4518\u00b0, 4.6936\u00b0)"
+    },
+    {
+      "id": "TC-08",
+      "name": "Astronomical Dimension Alignment on Different Shapes",
+      "details": "Aligned shape: (120, 120)"
+    },
+    {
+      "id": "TC-09",
+      "name": "Multi-Epoch Image Subtraction & RdBu Diverging Heatmap",
+      "details": "Heatmap PNG length: 2596 bytes"
+    },
+    {
+      "id": "TC-10",
+      "name": "Astronomical Point-Source Detection (DAOStarFinder)",
+      "details": "Detected 14 sources. Recovered injected stars: 1=True, 2=True, 3=True"
+    },
+    {
+      "id": "TC-12b",
+      "name": "Input Validation on Out-of-Bounds RA (>360\u00b0)",
+      "details": "HTTP status: 422"
+    },
+    {
+      "id": "TC-12c",
+      "name": "Rejection of Empty Image Payload (400 Bad Request)",
+      "details": "HTTP status: 400"
+    }
+  ],
+  "failed": [
+    {
+      "id": "TC-API-observations",
+      "name": "GET /api/observations",
+      "details": "HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=5)"
+    },
+    {
+      "id": "TC-API-cutout",
+      "name": "GET /api/cutout",
+      "details": "HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=5)"
+    },
+    {
+      "id": "TC-11",
+      "name": "Proper-Motion Calculations",
+      "details": "module 'app.services.motion_service' has no attribute 'calculate_motion_candidates'"
+    },
+    {
+      "id": "TC-12a",
+      "name": "Graceful Handling of Empty Coordinates",
+      "details": "HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=5)"
+    },
+    {
+      "id": "TC-13",
+      "name": "Transparent Data Provenance & Ethics Disclosures",
+      "details": "Dataset Source: 'NASA/IPAC IRSA SPHEREx SIA2 Service (spherex_dr1)', Ethical Candidate Verification Policy Active"
+    }
+  ],
+  "fixed": [],
+  "limitations": []
+}
