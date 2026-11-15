@@ -3,6 +3,8 @@ COSMIC LENS FastAPI Application — NASA SPHEREx Sky Explorer Backend
 """
 from __future__ import annotations
 
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -30,14 +32,20 @@ app = FastAPI(
 # CORS
 # ---------------------------------------------------------------------------
 
+cors_origins_env = os.getenv("CORS_ORIGINS", "")
+allowed_origins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+]
+if cors_origins_env:
+    allowed_origins.extend([origin.strip() for origin in cors_origins_env.split(",") if origin.strip()])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"https://.*\.onrender\.com",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -81,3 +89,10 @@ def root() -> dict:
         "nasa_irsa": "https://irsa.ipac.caltech.edu/Missions/spherex.html",
         "description": "NASA SPHEREx Sky Explorer — real data, honest science",
     }
+
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
+

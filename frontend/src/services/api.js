@@ -1,6 +1,18 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: '/api', timeout: 60000 });
+let apiBase = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '').trim();
+if (apiBase) {
+  if (!apiBase.startsWith('http://') && !apiBase.startsWith('https://')) {
+    apiBase = `https://${apiBase}`;
+  }
+  if (!apiBase.endsWith('/api')) {
+    apiBase = apiBase.replace(/\/+$/, '') + '/api';
+  }
+} else {
+  apiBase = '/api';
+}
+
+const api = axios.create({ baseURL: apiBase, timeout: 60000 });
 
 export const fetchHealth = () => api.get('/health');
 export const fetchObservations = (ra, dec, radius = 0.05, collection = 'spherex_dr1') =>
