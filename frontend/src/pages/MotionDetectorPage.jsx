@@ -79,6 +79,8 @@ export default function MotionDetectorPage() {
 
     try {
       const payload = {
+        image1_b64: obs1.image_base64 || undefined,
+        image2_b64: obs2.image_base64 || undefined,
         access_url1: obs1.access_url,
         access_url2: obs2.access_url,
         obs_id1: obs1.obs_id,
