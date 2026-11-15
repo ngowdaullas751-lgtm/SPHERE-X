@@ -627,6 +627,13 @@ def get_spectrum(ra: float, dec: float, obs_id: Optional[str] = None) -> dict[st
     target = find_target_near(ra, dec, tolerance_deg=0.5)
     if target and "spectrum" in target:
         spec = target["spectrum"]
+        sample_img = None
+        if target.get("observations"):
+            for o in target["observations"]:
+                if o.get("image_base64"):
+                    sample_img = o["image_base64"]
+                    break
+
         channel_pts = [
             {
                 "channel_index": i + 1,
@@ -642,7 +649,7 @@ def get_spectrum(ra: float, dec: float, obs_id: Optional[str] = None) -> dict[st
                 "obs_id": obs_id or f"SPX-SPEC-{target['id'].upper()}",
                 "quality_flag": 0,
                 "quality_status": "VALID_CALIBRATED",
-                "image_b64": None,
+                "image_b64": sample_img,
             }
             for i in range(len(spec["wavelengths"]))
         ]

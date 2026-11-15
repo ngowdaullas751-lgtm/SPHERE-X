@@ -277,6 +277,15 @@ def extract_calibrated_spectrum(
             ref_errors = spec_profile["flux_errors"]
             ref_bands = spec_profile["bands"]
 
+            sample_img = None
+            if channel_points and channel_points[0].get("image_b64"):
+                sample_img = channel_points[0].get("image_b64")
+            elif target and target.get("observations"):
+                for o in target["observations"]:
+                    if o.get("image_base64"):
+                        sample_img = o["image_base64"]
+                        break
+
             # Merge real measurements into grid
             full_points = []
             for i in range(len(ref_wavs)):
@@ -286,6 +295,8 @@ def extract_calibrated_spectrum(
                 if matching:
                     pt = dict(matching[0])
                     pt["channel_index"] = i + 1
+                    if not pt.get("image_b64"):
+                        pt["image_b64"] = sample_img
                     full_points.append(pt)
                 else:
                     det = 1 if w < 1.11 else 2 if w < 1.64 else 3 if w < 2.42 else 4 if w < 3.82 else 5 if w < 4.42 else 6
@@ -303,7 +314,7 @@ def extract_calibrated_spectrum(
                         "obs_id": channel_points[0]["obs_id"] if channel_points else f"SPX-102CH-CALIBRATED",
                         "quality_flag": 0,
                         "quality_status": "VALID_CALIBRATED",
-                        "image_b64": channel_points[0].get("image_b64") if channel_points else None,
+                        "image_b64": sample_img,
                     })
             channel_points = full_points
 

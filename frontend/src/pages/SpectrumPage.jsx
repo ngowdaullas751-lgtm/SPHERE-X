@@ -718,11 +718,11 @@ export default function SpectrumPage() {
               minHeight: '280px',
               position: 'relative',
             }}>
-              {activeChannel?.image_b64 ? (
+              {(activeChannel?.image_b64 || availableObservations.find(o => o.image_base64)?.image_base64) ? (
                 <>
                   <img
-                    src={`data:image/png;base64,${activeChannel.image_b64}`}
-                    alt={`SPHEREx Cutout at ${activeChannel.wavelength_um} um`}
+                    src={`data:image/png;base64,${activeChannel?.image_b64 || availableObservations.find(o => o.image_base64)?.image_base64}`}
+                    alt={`SPHEREx Cutout at ${activeChannel?.wavelength_um || '—'} um`}
                     style={{ width: '100%', height: 'auto', display: 'block', imageRendering: 'pixelated' }}
                   />
                   {/* Central Reticle Crosshairs */}
